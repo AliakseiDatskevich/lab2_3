@@ -18,4 +18,16 @@ public class SimilarityFinderTest {
 		assertThat(similarityFinder.calculateJackardSimilarity(sequence, sequence), Matchers.is(1.0d));
 	}
 
+	@Test
+	public void comparingTwoDifferentSetsIsCorrect() {
+
+		final int[] sequence = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+		final int[] otherSequence = new int[] { 10, 11, 12, 13, 14, 15, 16 };
+
+		SequenceSearcherDubler sequenceSearcher = new SequenceSearcherDubler();
+		SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+
+		assertThat(similarityFinder.calculateJackardSimilarity(sequence, otherSequence), Matchers.is(0.0d));
+	}
+
 }
