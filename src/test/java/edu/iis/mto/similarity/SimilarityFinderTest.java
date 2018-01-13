@@ -41,4 +41,15 @@ public class SimilarityFinderTest {
 
 		assertThat(similarityFinder.calculateJackardSimilarity(sequence, otherSequence), Matchers.is(0.5d));
 	}
+
+	@Test
+	public void comparingTwoEmptySetsIsCorrect() {
+
+		final int[] sequence = new int[] {};
+
+		SequenceSearcherDubler sequenceSearcher = new SequenceSearcherDubler();
+		SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+
+		assertThat(similarityFinder.calculateJackardSimilarity(sequence, sequence), Matchers.is(1.0d));
+	}
 }
