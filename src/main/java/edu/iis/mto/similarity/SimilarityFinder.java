@@ -11,8 +11,12 @@ public class SimilarityFinder {
     }
 
     public double calculateJackardSimilarity(int[] seq1, int[] seq2) {
-        if (seq1.length == 0 && seq2.length == 0) {
-            return 1.0d;
+        try {
+            if (seq1.length == 0 && seq2.length == 0) {
+                return 1.0d;
+            }
+        } catch (NullPointerException n) {
+            n.fillInStackTrace();
         }
 
         int intersectSize = calculateIntersect(seq1, seq2);

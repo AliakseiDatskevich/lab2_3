@@ -56,4 +56,11 @@ public class SimilarityFinderTest {
         int[] tab2 = {1, 4};
         assertThat(finder.calculateJackardSimilarity(tab1, tab2), is(0.5));
     }
+
+    @Test(expected = NullPointerException.class)
+    public void testNullValues() {
+        int[] tab1 = null;
+        int[] tab2 = null;
+        finder.calculateJackardSimilarity(tab1, tab2);
+    }
 }
