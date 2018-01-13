@@ -30,4 +30,15 @@ public class SimilarityFinderTest {
 		assertThat(similarityFinder.calculateJackardSimilarity(sequence, otherSequence), Matchers.is(0.0d));
 	}
 
+	@Test
+	public void comparingTwoPartiallySimilarSetsIsCorrect() {
+
+		final int[] sequence = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+		final int[] otherSequence = new int[] { 1, 2, 3, 4, 5 };
+
+		SequenceSearcherDubler sequenceSearcher = new SequenceSearcherDubler();
+		SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+
+		assertThat(similarityFinder.calculateJackardSimilarity(sequence, otherSequence), Matchers.is(0.5d));
+	}
 }
