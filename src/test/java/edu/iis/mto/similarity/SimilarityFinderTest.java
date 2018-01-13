@@ -42,4 +42,11 @@ public class SimilarityFinderTest {
         int[] tab2 = {1, 2, 3, 4};
         assertThat(finder.calculateJackardSimilarity(tab1, tab2), is(0.0));
     }
+
+    @Test
+    public void testSecondEmptyArray() {
+        int[] tab1 = {1, 2, 3, 4};
+        int[] tab2 = {};
+        assertThat(finder.calculateJackardSimilarity(tab1, tab2), is(0.0));
+    }
 }
