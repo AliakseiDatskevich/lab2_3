@@ -42,12 +42,32 @@ public class SimilarityFinderTest {
 
     @Test
     public void calculateJackardSimilaritySizeIsEqualToOneAndHaveOneCommonElement() {
-        ;
+        int[] fisrtSequence = {1};
+        int[] secondSequence = {1};
+        SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
+        double expectedJackardSimilarity = 1.;
+        double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
+        double delta = Math.abs(actualJackardSimilarity - expectedJackardSimilarity);
+        double epsilon = 0.00000001;
+        boolean actualOutput = delta < epsilon;
+        boolean expectedOutput = true;
+
+        assertThat(expectedOutput, Matchers.equalTo(actualOutput));
     }
 
     @Test
     public void calculateJackardSimilaritySizeIsEqualToOneAndHaveNoCommonElements() {
-        ;
+        int[] fisrtSequence = {1};
+        int[] secondSequence = {2};
+        SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
+        double expectedJackardSimilarity = 0.;
+        double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
+        double delta = Math.abs(actualJackardSimilarity - expectedJackardSimilarity);
+        double epsilon = 0.00000001;
+        boolean actualOutput = delta < epsilon;
+        boolean expectedOutput = true;
+
+        assertThat(expectedOutput, Matchers.equalTo(actualOutput));
     }
 
     @Test
