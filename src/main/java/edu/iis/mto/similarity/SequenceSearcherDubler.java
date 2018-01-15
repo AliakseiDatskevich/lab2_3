@@ -5,10 +5,13 @@ import edu.iis.mto.search.SequenceSearcher;
 
 public class SequenceSearcherDubler implements SequenceSearcher {
 
+	int count = 0;
+
 	public SearchResult search(int key, int[] seq) {
 
 		boolean found = false;
 		int position = -1;
+		count++;
 
 		for (int i : seq) {
 			if (i == key) {
@@ -18,5 +21,9 @@ public class SequenceSearcherDubler implements SequenceSearcher {
 			}
 		}
 		return new SearchResultDubler(found, position);
+	}
+
+	public int getCount() {
+		return count;
 	}
 }
