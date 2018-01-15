@@ -52,4 +52,16 @@ public class SimilarityFinderTest {
 
 		assertThat(similarityFinder.calculateJackardSimilarity(sequence, sequence), Matchers.is(1.0d));
 	}
+
+	@Test
+	public void comparingLoopCalledAsManyTimesAsSequenceLength() {
+
+		final int[] sequence = new int[] { 1, 2, 3, 4, 5 };
+
+		SequenceSearcherDubler sequenceSearcher = new SequenceSearcherDubler();
+		SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+
+		similarityFinder.calculateJackardSimilarity(sequence, sequence);
+		assertThat(sequenceSearcher.getCount(), Matchers.is(sequence.length));
+	}
 }
