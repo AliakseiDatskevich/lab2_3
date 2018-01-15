@@ -72,22 +72,47 @@ public class SimilarityFinderTest {
 
     @Test
     public void calculateJackardSimilarityDifferentSequenceSizesNoCommonElements() {
-        ;
+        int[] fisrtSequence = {1, 2, 3};
+        int[] secondSequence = {4, 5, 6, 7, 8, 9};
+        SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
+        double expectedJackardSimilarity = 0.;
+        double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
+        double delta = Math.abs(actualJackardSimilarity - expectedJackardSimilarity);
+        double epsilon = 0.00000001;
+        boolean actualOutput = delta < epsilon;
+        boolean expectedOutput = true;
+
+        assertThat(expectedOutput, Matchers.equalTo(actualOutput));
     }
 
     @Test
     public void calculateJackardSimilarityDifferentSequenceSizesOneCommonElement() {
-        ;
+        int[] fisrtSequence = {1, 2, 3, 4};
+        int[] secondSequence = {4, 5, 6, 7, 8, 9};
+        SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
+        double expectedJackardSimilarity = 0.1111111111111111;
+        double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
+        double delta = Math.abs(actualJackardSimilarity - expectedJackardSimilarity);
+        double epsilon = 0.00000001;
+        boolean actualOutput = delta < epsilon;
+        boolean expectedOutput = true;
+
+        assertThat(expectedOutput, Matchers.equalTo(actualOutput));
     }
 
     @Test
-    public void calculateJackardSimilarityDifferentSequenceSizesAllElementsAreCommon() {
-        ;
-    }
+    public void calculateJackardSimilarityDifferentSequenceSizesSomeElementsAreCommon() {
+        int[] fisrtSequence = {1, 2, 3, 4, 5, 6};
+        int[] secondSequence = {4, 5, 6, 7, 8, 9, 10, 11, 12};
+        SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
+        double expectedJackardSimilarity = 0.25;
+        double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
+        double delta = Math.abs(actualJackardSimilarity - expectedJackardSimilarity);
+        double epsilon = 0.00000001;
+        boolean actualOutput = delta < epsilon;
+        boolean expectedOutput = true;
 
-    @Test
-    public void calculateJackardSimilarityDifferentSequenceSizesHalfOfElementsAreCommon() {
-        ;
+        assertThat(expectedOutput, Matchers.equalTo(actualOutput));
     }
 
     public void calculateJackardSimilarityTheSameSequenceSizesNoCommonElements() {
