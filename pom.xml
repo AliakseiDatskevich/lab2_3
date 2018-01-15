@@ -20,5 +20,10 @@
 			<artifactId>lab2_3_dep</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.10.19</version>
+		</dependency>
    </dependencies>
 </project>

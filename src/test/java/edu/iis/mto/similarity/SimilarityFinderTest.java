@@ -1,6 +1,12 @@
 package edu.iis.mto.similarity;
 
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -57,11 +63,10 @@ public class SimilarityFinderTest {
 	public void comparingLoopCalledAsManyTimesAsSequenceLength() {
 
 		final int[] sequence = new int[] { 1, 2, 3, 4, 5 };
-
-		SequenceSearcherDubler sequenceSearcher = new SequenceSearcherDubler();
+		SequenceSearcherDubler sequenceSearcher = mock(SequenceSearcherDubler.class);
 		SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
-
+		when(sequenceSearcher.search(anyInt(), (int[]) any())).thenReturn(new SearchResultDubler(true, 0));
 		similarityFinder.calculateJackardSimilarity(sequence, sequence);
-		assertThat(sequenceSearcher.getCount(), Matchers.is(sequence.length));
+		verify(sequenceSearcher, times(sequence.length)).search(anyInt(), (int[]) any());
 	}
 }
