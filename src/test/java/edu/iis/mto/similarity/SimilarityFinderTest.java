@@ -2,6 +2,8 @@ package edu.iis.mto.similarity;
 
 import static org.junit.Assert.assertThat;
 
+import java.util.Vector;
+
 import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Test;
@@ -16,6 +18,7 @@ public class SimilarityFinderTest {
     @After
     public void resetStaticData() {
         SequenceSearcherDubler.methodCallCounter = 0;
+        SequenceSearcherDubler.receivedElementVector.clear();
     }
 
     @Test
@@ -193,6 +196,47 @@ public class SimilarityFinderTest {
         objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence); // in that case result is irrelevant
 
         assertThat(expectedOutput, Matchers.equalTo(SequenceSearcherDubler.methodCallCounter));
+    }
+
+    @Test
+    public void calculateJackardSimilaritySearchReceivedZeroParameters() {
+        int[] fisrtSequence = {};
+        int[] secondSequence = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+        Vector<Integer> expectedParameters = new Vector<Integer>();
+        SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
+        objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence); // in that case result is irrelevant
+
+        assertThat(EXPECTED,
+                Matchers.equalTo(expectedParameters.containsAll(SequenceSearcherDubler.receivedElementVector)));
+    }
+
+    @Test
+    public void calculateJackardSimilaritySearchReceivedOneParameter() {
+        int[] fisrtSequence = {1};
+        int[] secondSequence = {4, 5, 6, 7, 8, 9};
+        Vector<Integer> expectedParameters = new Vector<Integer>();
+        expectedParameters.addElement(1);
+        SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
+        objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence); // in that case result is irrelevant
+
+        assertThat(EXPECTED,
+                Matchers.equalTo(expectedParameters.containsAll(SequenceSearcherDubler.receivedElementVector)));
+    }
+
+    @Test
+    public void calculateJackardSimilaritySearchReceivedManyParameters() {
+        int[] fisrtSequence = {1, 2, 3, 4};
+        int[] secondSequence = {4, 5, 6, 7, 8, 9};
+        Vector<Integer> expectedParameters = new Vector<Integer>();
+        expectedParameters.addElement(1);
+        expectedParameters.addElement(2);
+        expectedParameters.addElement(3);
+        expectedParameters.addElement(4);
+        SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
+        objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence); // in that case result is irrelevant
+
+        assertThat(EXPECTED,
+                Matchers.equalTo(expectedParameters.containsAll(SequenceSearcherDubler.receivedElementVector)));
     }
 
 }
