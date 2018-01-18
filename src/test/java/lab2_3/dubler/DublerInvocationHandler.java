@@ -8,55 +8,78 @@ import java.util.List;
 
 class DoublerInvocationHandler implements InvocationHandler {
 
-	private Method lastMethod;
-	private Object[] lastArgs;
-	private List<DublerData> dataHolders = new ArrayList<>();
+    boolean shouldContTimes = true;
+    private Method lastMethod;
+    private Object[] lastArgs;
+    private List<DublerData> dataHolders = new ArrayList<>();
 
-	@Override
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		Dubler.lastDoublerInvocationHandler = this;
-		lastMethod = method;
-		lastArgs = args;
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        Dubler.lastDoublerInvocationHandler = this;
+        lastMethod = method;
+        lastArgs = args;
 
-		for (DublerData dublerData : dataHolders) {
-			if (dublerData.getMethod().equals(method) && Arrays.deepEquals(dublerData.getArgs(), args)) {
-				return dublerData.getRetObj();
-			}
-		}
+        for (DublerData dublerData : dataHolders) {
+            if (dublerData.getMethod().equals(method) && Arrays.deepEquals(dublerData.getArgs(), args)) {
+                return dublerData.getRetObj();
+            }
+        }
 
-		// return null if object and false for boolean
-		if (method.getReturnType() == boolean.class) {
-			return false;
-		}
-		return null;
-	}
+        // return null if object and false for boolean
+        if (method.getReturnType() == boolean.class) {
+            return false;
+        }
+        return null;
+    }
 
-	public void setReturnObj(Object retObj) {
-		dataHolders.add(new DublerData(lastMethod, lastArgs, retObj));
-	}
+    void setReturnObj(Object retObj) {
+        dataHolders.add(new DublerData(lastMethod, lastArgs, retObj));
+    }
 
-	private class DublerData {
-		private final Object[] args;
-		private final Method method;
-		private final Object retObj;
+    DublerData getLastDoublerData() {
+        for (DublerData dublerData : dataHolders) {
+            if (dublerData.getMethod().equals(lastMethod) && Arrays.deepEquals(dublerData.getArgs(), lastArgs)) {
+                return dublerData;
+            }
+        }
+        return null;
+    }
 
-		private DublerData(Method method, Object[] args, Object retObj) {
-			this.args = args;
-			this.method = method;
-			this.retObj = retObj;
-		}
+    public class DublerData {
+        private int timesCalled = 0;
+        private final Object[] args;
+        private final Method method;
+        private final Object retObj;
 
-		private Object[] getArgs() {
-			return args;
-		}
+        private DublerData(Method method, Object[] args, Object retObj) {
+            this.args = args;
+            this.method = method;
+            this.retObj = retObj;
+        }
 
-		private Method getMethod() {
-			return method;
-		}
+        private Object[] getArgs() {
+            return args;
+        }
 
-		private Object getRetObj() {
-			return retObj;
-		}
-	}
+        private Method getMethod() {
+            return method;
+        }
+
+        public Object getRetObj() {
+            if (shouldContTimes) {
+                timesCalled++;
+            }
+            shouldContTimes = true;
+            return retObj;
+        }
+
+        public int getTimesCalled() {
+            return timesCalled;
+        }
+
+        public void decrementTimesCalled() {
+            timesCalled--;
+        }
+    }
 
 }
