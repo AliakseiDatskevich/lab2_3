@@ -9,10 +9,12 @@ import org.junit.Test;
 public class SimilarityFinderTest {
 
     private SimilarityFinder finder;
+    private MockSequenceSearcher searcher;
 
     @Before
     public void setUp() {
-        finder = new SimilarityFinder(new MockSequenceSearcher());
+        searcher = new MockSequenceSearcher();
+        finder = new SimilarityFinder(searcher);
     }
 
     @Test
@@ -59,8 +61,14 @@ public class SimilarityFinderTest {
 
     @Test(expected = NullPointerException.class)
     public void testNullValues() {
-        int[] tab1 = null;
-        int[] tab2 = null;
+        finder.calculateJackardSimilarity(null, null);
+    }
+
+    @Test
+    public void testLoopCounterSequenceSearcher() {
+        int[] tab1 = {1, 2, 3, 4};
+        int[] tab2 = {1, 4};
         finder.calculateJackardSimilarity(tab1, tab2);
+        assertThat(searcher.getCounter(), is(tab1.length));
     }
 }
