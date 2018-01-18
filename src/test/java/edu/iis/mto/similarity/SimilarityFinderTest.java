@@ -71,4 +71,12 @@ public class SimilarityFinderTest {
         finder.calculateJackardSimilarity(tab1, tab2);
         assertThat(searcher.getCounter(), is(tab1.length));
     }
+
+    @Test
+    public void testLoopKeysSequenceSearcher() {
+        int[] tab1 = {1, 2, 3, 4};
+        int[] tab2 = {1, 4};
+        finder.calculateJackardSimilarity(tab1, tab2);
+        assertThat(searcher.getKeys(), is(tab1));
+    }
 }
