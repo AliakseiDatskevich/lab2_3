@@ -1,17 +1,17 @@
 package lab2_3;
 
+import static lab2_3.dubler.Dubler.dubler;
+import static lab2_3.dubler.Dubler.verifyTimes;
 import static lab2_3.dubler.Dubler.when;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import edu.iis.mto.search.SearchResult;
 import edu.iis.mto.search.SequenceSearcher;
 import edu.iis.mto.similarity.SimilarityFinder;
-
-import static lab2_3.dubler.Dubler.*;
 
 public class SimilarityFinderTest {
 
@@ -19,8 +19,8 @@ public class SimilarityFinderTest {
 
 	public static SearchResult DUB_RESULT_FALSE;
 
-	@BeforeClass
-	public static void setUp() {
+	@Before
+	public void setUp() {
 		DUB_RESULT_TRUE = dubler(SearchResult.class);
 		when(DUB_RESULT_TRUE.isFound()).thenReturn(true);
 
@@ -122,9 +122,9 @@ public class SimilarityFinderTest {
 		assertThat(verifyTimes(searcherDub.search(3, seq2), 1), is(true));
 		assertThat(verifyTimes(searcherDub.search(4, seq2), 1), is(true));
 	}
-	
+
 	@Test
-	public void testDublerSearchArguementsCalled() {
+	public void testDublerSearchNotCalled() {
 		int[] seq1 = new int[] { 3, 4 };
 		int[] seq2 = new int[] { 3, 4, 5, 6, 7, 8 };
 
@@ -135,8 +135,9 @@ public class SimilarityFinderTest {
 
 		SimilarityFinder finder = new SimilarityFinder(searcherDub);
 		finder.calculateJackardSimilarity(seq1, seq2);
-
-		assertThat(verifyTimes(searcherDub.search(3, seq2), 1), is(true));
-		assertThat(verifyTimes(searcherDub.search(4, seq2), 1), is(true));
+		
+		assertThat(verifyTimes(searcherDub.search(1, seq2), 0), is(true));
+		assertThat(verifyTimes(searcherDub.search(2, seq2), 0), is(true));
+		assertThat(verifyTimes(searcherDub.search(5, seq2), 0), is(true));
 	}
 }

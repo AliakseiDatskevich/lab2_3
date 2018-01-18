@@ -1,10 +1,13 @@
 package lab2_3.dubler;
 
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Dubler {
 
-	static DoublerInvocationHandler lastDoublerInvocationHandler;
+	private static DoublerInvocationHandler lastDoublerInvocationHandler;
+	private static List<DoublerInvocationHandler> invocationHanders = new ArrayList<>();
 
 	@SuppressWarnings("unchecked")
 	public static <T> T dubler(Class<T> clazz) {
@@ -14,7 +17,7 @@ public class Dubler {
 	}
 
 	public static <T> When<T> when(T obj) {
-	    lastDoublerInvocationHandler.shouldContTimes = false;
+		lastDoublerInvocationHandler.setCountTimes(false);
 		return new When<>();
 	}
 
@@ -22,29 +25,23 @@ public class Dubler {
 
 		public void thenReturn(T retObj) {
 			lastDoublerInvocationHandler.setReturnObj(retObj);
-			lastDoublerInvocationHandler.shouldContTimes = true;
+			lastDoublerInvocationHandler.setCountTimes(true);
 		}
 
 	}
 
-	public static <T> boolean verifyTimes(T obj, int times) {
-	    DoublerInvocationHandler.DublerData data = lastDoublerInvocationHandler.getLastDoublerData();
-        if (data == null) {
-            return times == 0;
-        }
-        // Remove last call in verify
-        data.decrementTimesCalled();
-        return times == data.getTimesCalled();
-	}
-	
-	public static <T> boolean verifyArgs(T obj, int times) {
-	    DoublerInvocationHandler.DublerData data = lastDoublerInvocationHandler.getLastDoublerData();
-        if (data == null) {
-            return times == 0;
-        }
-        // Remove last call in verify
-        data.decrementTimesCalled();
-        return times == data.getTimesCalled();
+	static void setLastInvocationHanlder(DoublerInvocationHandler lastDoublerInvocationHandler) {
+		Dubler.lastDoublerInvocationHandler = lastDoublerInvocationHandler;
+		invocationHanders.add(lastDoublerInvocationHandler);
 	}
 
+	public static boolean verifyTimes(Object obj, int times) {
+		DublerData data = lastDoublerInvocationHandler.getLastDoublerData();
+		if (data == null) {
+			return times == 0;
+		}
+		// Remove last call in verify
+		data.decrementTimesCalled();
+		return times == data.getTimesCalled();
+	}
 }
