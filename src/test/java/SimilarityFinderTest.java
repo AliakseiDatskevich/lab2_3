@@ -1,11 +1,25 @@
 import edu.iis.mto.similarity.MockSequenceSearcher;
 import edu.iis.mto.similarity.SimilarityFinder;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 public class SimilarityFinderTest {
+
+    SimilarityFinder similarityFinder;
+    private MockSequenceSearcher dummySequenceSearcher;
+
+    @Before
+    public void setUp() {
+        dummySequenceSearcher = createDummySequenceSearcher();
+        similarityFinder = new SimilarityFinder(dummySequenceSearcher);
+    }
+
+    private MockSequenceSearcher createDummySequenceSearcher() {
+        return new MockSequenceSearcher();
+    }
 
     @Test
     public void testCalculateJackardSimilarityAnotherSizeSeq() throws Exception {
@@ -29,5 +43,30 @@ public class SimilarityFinderTest {
         double result = similarityFinder.calculateJackardSimilarity(seq1,seq2);
 
         assertThat(result, is(expected));
+    }
+
+    @Test
+    public void testCalculateJackardTheSameSeqLenAnotherContents() {
+        int[] seq = new int[]{1, 2, 3};
+        int[] seq1 = new int[]{1, 2, 5};
+
+        double expected = (double) 2 / 4;
+
+        double result = similarityFinder.calculateJackardSimilarity(seq1, seq);
+
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void testCalculateJackardSearchCallNumber() {
+        int[] seq = new int[]{1, 2, 3};
+        int[] seq1 = new int[]{1, 2, 5, 4};
+
+        int expected = 4;
+
+        similarityFinder.calculateJackardSimilarity(seq1, seq);
+
+        assertThat(dummySequenceSearcher.getCallCounter(), is(expected));
+
     }
 }
