@@ -52,4 +52,15 @@ public class SimilarityFinderTest {
         assertThat(result, is(expected));
     }
 
+    @Test
+    public void calculateJackardSimilarityFirstSeqHalfOfSecondSeq(){
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcherDubler());
+        int[] seq1 = {1, 2};
+        int[] seq2 = {1, 2, 3, 4};
+        double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        double expected = 0.5d;
+
+        assertThat(result, is(expected));
+    }
+
 }
