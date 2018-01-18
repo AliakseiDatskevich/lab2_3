@@ -18,7 +18,6 @@ public class SequenceSearcherDubler implements SequenceSearcher {
                 break;
             }
         }
-        System.out.println(found);
         return new SearchResultDubler(found, position);
     }
 }
