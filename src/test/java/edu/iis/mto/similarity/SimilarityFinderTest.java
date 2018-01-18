@@ -41,4 +41,15 @@ public class SimilarityFinderTest {
         assertThat(result, is(expected));
     }
 
+    @Test
+    public void calculateJackardSimilarityBothOneSeqEmpty(){
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcherDubler());
+        int[] seq1 = {};
+        int[] seq2 = {5, 7, 7, 10, 11};
+        double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        double expected = 0.0d;
+
+        assertThat(result, is(expected));
+    }
+
 }
