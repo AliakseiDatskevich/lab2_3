@@ -7,9 +7,9 @@ public class SearchResultDubler implements SearchResult {
     private boolean found;
     private int position;
 
-    public SearchResultDubler(boolean foundStatus, int elemPosition) {
+    public SearchResultDubler(boolean foundStatus) {
         found = foundStatus;
-        position = elemPosition;
+        position = -1;
     }
 
     public boolean isFound() {

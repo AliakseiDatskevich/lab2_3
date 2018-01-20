@@ -37,8 +37,11 @@ public class SimilarityFinderTest {
 
     @Test
     public void calculateJackardSimilaritySecondSequencesIsEmpty() {
-        int[] fisrtSequence = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] fisrtSequence = {1, 2, 3};
         int[] secondSequence = {};
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
         SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
         double expectedJackardSimilarity = 0.;
         double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
@@ -52,6 +55,7 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilaritySizeIsEqualToOneAndHaveOneCommonElement() {
         int[] fisrtSequence = {1};
         int[] secondSequence = {1};
+        SequenceSearcherDubler.searchResults.push(true);
         SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
         double expectedJackardSimilarity = 1.;
         double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
@@ -65,6 +69,7 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilaritySizeIsEqualToOneAndHaveNoCommonElements() {
         int[] fisrtSequence = {1};
         int[] secondSequence = {2};
+        SequenceSearcherDubler.searchResults.push(false);
         SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
         double expectedJackardSimilarity = 0.;
         double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
@@ -78,6 +83,9 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilarityDifferentSequenceSizesNoCommonElements() {
         int[] fisrtSequence = {1, 2, 3};
         int[] secondSequence = {4, 5, 6, 7, 8, 9};
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
         SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
         double expectedJackardSimilarity = 0.;
         double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
@@ -91,6 +99,8 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilarityDifferentSequenceSizesOneCommonElement() {
         int[] fisrtSequence = {1, 2};
         int[] secondSequence = {2, 3, 4};
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(false);
         SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
         double expectedJackardSimilarity = 0.25;
         double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
@@ -104,6 +114,12 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilarityDifferentSequenceSizesSomeElementsAreCommon() {
         int[] fisrtSequence = {1, 2, 3, 4, 5, 6};
         int[] secondSequence = {4, 5, 6, 7, 8, 9, 10, 11, 12};
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
         SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
         double expectedJackardSimilarity = 0.25;
         double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
@@ -117,6 +133,9 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilarityTheSameSequenceSizesNoCommonElements() {
         int[] fisrtSequence = {1, 2, 3};
         int[] secondSequence = {4, 5, 6};
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
         SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
         double expectedJackardSimilarity = 0.;
         double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
@@ -130,6 +149,9 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilarityTheSameSequenceSizesOneCommonElement() {
         int[] fisrtSequence = {1, 2, 3};
         int[] secondSequence = {3, 4, 5};
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
         SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
         double expectedJackardSimilarity = 0.2;
         double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
@@ -143,6 +165,9 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilarityTheSameSequenceSizesAllElementsAreCommon() {
         int[] fisrtSequence = {1, 2, 3};
         int[] secondSequence = {1, 2, 3};
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(true);
         SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
         double expectedJackardSimilarity = 1.;
         double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
@@ -156,6 +181,12 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilarityTheSameSequenceSizesHalfOfElementsAreCommon() {
         int[] fisrtSequence = {1, 2, 3, 4, 5, 6};
         int[] secondSequence = {4, 5, 6, 7, 8, 9};
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
         SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
         double expectedJackardSimilarity = .3333333333333333;
         double actualJackardSimilarity = objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence);
@@ -180,6 +211,7 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilarityCallSizeMethodOneTime() {
         int[] fisrtSequence = {1};
         int[] secondSequence = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+        SequenceSearcherDubler.searchResults.push(false);
         int expectedOutput = 1;
         SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
         objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence); // in that case result is irrelevant
@@ -191,6 +223,13 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilarityCallSizeMethodManyTimes() {
         int[] fisrtSequence = {1, 2, 3, 4, 5, 6, 7};
         int[] secondSequence = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
         int expectedOutput = 7;
         SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
         objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence); // in that case result is irrelevant
@@ -212,10 +251,11 @@ public class SimilarityFinderTest {
 
     @Test
     public void calculateJackardSimilaritySearchReceivedOneParameter() {
-        int[] fisrtSequence = {1};
+        int[] fisrtSequence = {5};
         int[] secondSequence = {4, 5, 6, 7, 8, 9};
+        SequenceSearcherDubler.searchResults.push(false);
         Vector<Integer> expectedParameters = new Vector<Integer>();
-        expectedParameters.addElement(1);
+        expectedParameters.addElement(5);
         SimilarityFinder objectUnderTest = new SimilarityFinder(new SequenceSearcherDubler());
         objectUnderTest.calculateJackardSimilarity(fisrtSequence, secondSequence); // in that case result is irrelevant
 
@@ -227,6 +267,10 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilaritySearchReceivedManyParameters() {
         int[] fisrtSequence = {1, 2, 3, 4};
         int[] secondSequence = {4, 5, 6, 7, 8, 9};
+        SequenceSearcherDubler.searchResults.push(true);
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
+        SequenceSearcherDubler.searchResults.push(false);
         Vector<Integer> expectedParameters = new Vector<Integer>();
         expectedParameters.addElement(1);
         expectedParameters.addElement(2);

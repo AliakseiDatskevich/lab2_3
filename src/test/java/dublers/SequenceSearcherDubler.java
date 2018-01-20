@@ -1,5 +1,6 @@
 package dublers;
 
+import java.util.Stack;
 import java.util.Vector;
 
 import edu.iis.mto.search.SearchResult;
@@ -9,21 +10,13 @@ public class SequenceSearcherDubler implements SequenceSearcher {
 
     public static int methodCallCounter = 0;
     public static Vector<Integer> receivedElementVector = new Vector<Integer>();
+    public static Stack<Boolean> searchResults = new Stack<Boolean>();
 
     public SearchResult search(int elem, int[] seq) {
 
         methodCallCounter++;
         receivedElementVector.addElement(elem);
-        boolean foundStatus = false;
-        int elemPosition = -1;
 
-        for (int i = 0; i < seq.length; i++) {
-            if (seq[i] == elem) {
-                foundStatus = true;
-                elemPosition = i;
-                break;
-            }
-        }
-        return new SearchResultDubler(foundStatus, elemPosition);
+        return new SearchResultDubler(searchResults.pop());
     }
 }
