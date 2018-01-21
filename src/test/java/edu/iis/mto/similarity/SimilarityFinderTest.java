@@ -19,4 +19,6 @@ public class SimilarityFinderTest {
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(1.0));
     }
 
+
+
 }
