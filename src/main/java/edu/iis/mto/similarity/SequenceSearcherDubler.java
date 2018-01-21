@@ -23,10 +23,6 @@ public class SequenceSearcherDubler implements SequenceSearcher {
         return counter;
     }
 
-    public void setSearchResultList(List<SearchResult> resultList) {
-        this.resultList = resultList;
-    }
-
     public void addSearchResultToList(SearchResult searchResult) {
         resultList.add(searchResult);
     }
@@ -34,4 +30,12 @@ public class SequenceSearcherDubler implements SequenceSearcher {
     public List<Integer> getKeyList() {
         return keyList;
     }
+
+    public void listProvider(SearchResultDubler... searchResultArgument) {
+        for (SearchResultDubler searchResult : searchResultArgument) {
+            addSearchResultToList(searchResult);
+        }
+
+    }
+
 }
