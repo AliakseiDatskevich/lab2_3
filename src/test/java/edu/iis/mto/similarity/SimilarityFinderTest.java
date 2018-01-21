@@ -38,5 +38,12 @@ public class SimilarityFinderTest {
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), allOf(greaterThan(0.0), lessThan(1.0)));
     }
 
+    @Test
+    public void whenFirstSequenceIsEmptyJaccardaIndexIsZero(){
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSeracherImpl());
+        int[] seq1 = {};
+        int[] seq2 = {117, 1117, 1127, 1137};
+        assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(0.0));
+    }
 
 }
