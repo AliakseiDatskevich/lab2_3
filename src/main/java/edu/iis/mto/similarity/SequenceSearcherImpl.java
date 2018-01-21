@@ -6,9 +6,7 @@ import edu.iis.mto.search.SequenceSearcher;
 /**
  * Created by Lukasz on 2018-01-21.
  */
-public class SequenceSeracherImpl implements SequenceSearcher{
-
-    private int counter = 0;
+public class SequenceSearcherImpl implements SequenceSearcher{
 
     public SearchResult search(int key, int[] seq) {
         for (int k = 0; k < seq.length; k++) {
