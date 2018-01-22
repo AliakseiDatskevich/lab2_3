@@ -1,12 +1,6 @@
 package edu.iis.mto.similarity;
 
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -18,7 +12,8 @@ public class SimilarityFinderTest {
 
 		final int[] sequence = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-		SequenceSearcherDubler sequenceSearcher = new SequenceSearcherDubler();
+		SequenceSearcherDubler sequenceSearcher = new SequenceSearcherDubler(true, true, true, true, true, true, true,
+				true, true, true);
 		SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
 
 		assertThat(similarityFinder.calculateJackardSimilarity(sequence, sequence), Matchers.is(1.0d));
@@ -30,7 +25,8 @@ public class SimilarityFinderTest {
 		final int[] sequence = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 		final int[] otherSequence = new int[] { 10, 11, 12, 13, 14, 15, 16 };
 
-		SequenceSearcherDubler sequenceSearcher = new SequenceSearcherDubler();
+		SequenceSearcherDubler sequenceSearcher = new SequenceSearcherDubler(false, false, false, false, false, false,
+				false, false, false, false);
 		SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
 
 		assertThat(similarityFinder.calculateJackardSimilarity(sequence, otherSequence), Matchers.is(0.0d));
@@ -42,7 +38,8 @@ public class SimilarityFinderTest {
 		final int[] sequence = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 		final int[] otherSequence = new int[] { 1, 2, 3, 4, 5 };
 
-		SequenceSearcherDubler sequenceSearcher = new SequenceSearcherDubler();
+		SequenceSearcherDubler sequenceSearcher = new SequenceSearcherDubler(true, true, true, true, true, false, false,
+				false, false, false);
 		SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
 
 		assertThat(similarityFinder.calculateJackardSimilarity(sequence, otherSequence), Matchers.is(0.5d));
@@ -61,12 +58,10 @@ public class SimilarityFinderTest {
 
 	@Test
 	public void comparingLoopCalledAsManyTimesAsSequenceLength() {
-
 		final int[] sequence = new int[] { 1, 2, 3, 4, 5 };
-		SequenceSearcherDubler sequenceSearcher = mock(SequenceSearcherDubler.class);
+		SequenceSearcherDubler sequenceSearcher = new SequenceSearcherDubler(true, true, true, true, true);
 		SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
-		when(sequenceSearcher.search(anyInt(), (int[]) any())).thenReturn(new SearchResultDubler(true, 0));
 		similarityFinder.calculateJackardSimilarity(sequence, sequence);
-		verify(sequenceSearcher, times(sequence.length)).search(anyInt(), (int[]) any());
+		assertThat(sequenceSearcher.getCount(), Matchers.is(sequence.length));
 	}
 }
