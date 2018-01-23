@@ -3,19 +3,22 @@ package edu.iis.mto.similarity;
 import edu.iis.mto.search.SearchResult;
 import edu.iis.mto.search.SequenceSearcher;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MockSequenceSearcher implements SequenceSearcher {
 
-    private Call callHierarchy;
+    private Call callHierarchy ;
     private int callCounter = 0;
+    List<Integer> keyList = new ArrayList<Integer>();
+    List<SearchResult> returnResults = new ArrayList<SearchResult>();
 
     public SearchResult search(int i, int[] ints) {
-        SearchContainer searchContainer = new SearchContainer();
+        callHierarchy = new Call(i, ints);
+        callCounter++;
+        keyList.add(i);
 
-        searchContainer.key = i;
-        searchContainer.seq = ints;
-        searchContainer.result = calcResult(i, ints);
-
-        return searchContainer.result;
+        return returnResults.get(callCounter - 1);
     }
 
     public int getCallCounter() {
@@ -26,15 +29,12 @@ public class MockSequenceSearcher implements SequenceSearcher {
         return callHierarchy.param;
     }
 
-    public static class SearchContainer {
-
-        public int key;
-        public int[] seq;
-        public MockSearchResult result;
-    }
-
     public int[] getSeq() {
         return callHierarchy.sequence;
+    }
+
+    public void addReturnResult(SearchResult searchResult) {
+        returnResults.add(searchResult);
     }
 
     private class Call {
@@ -48,17 +48,5 @@ public class MockSequenceSearcher implements SequenceSearcher {
         }
 
     }
-
-    private MockSearchResult calcResult(int i, int[] ints) {
-        int pos = 0;
-        callHierarchy = new Call(i, ints);
-        callCounter++;
-        for (int j : ints) {
-            if (i == j) {
-                return new MockSearchResult(true, pos);
-            }
-            pos++;
-        }
-        return new MockSearchResult(false, -1);
-    }
 }
+

@@ -7,9 +7,13 @@ public class MockSearchResult implements SearchResult {
     private boolean isFound;
     private int position = -1;
 
+    public MockSearchResult(boolean isFound) {
+        this.isFound = isFound;
+    }
+
     public MockSearchResult(boolean isFound, int position) {
         this.isFound = isFound;
-        this.position = position;
+        this.position = position -1;
     }
 
     public boolean isFound() {
