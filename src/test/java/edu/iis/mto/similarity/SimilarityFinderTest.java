@@ -52,4 +52,18 @@ public class SimilarityFinderTest {
 
         assertEquals(BigDecimal.valueOf(result).setScale(2, RoundingMode.HALF_UP), BigDecimal.valueOf(0.33d));
     }
+
+    @Test
+    public void areSequencesCompletelyDifferent() throws Exception {
+        int[] seq1 = {1, 0, 3, 22, 7, 2, 99, 13};
+        int[] seq2 = {14, 21, 8, 27, 5, 30, 50, 33};
+
+        SequenceSearcher dubler = new SequenceSearcherDubler(false, false, false, false, false, false, false, false);
+
+        SimilarityFinder similarityFinder = new SimilarityFinder(dubler);
+
+        double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+
+        assertEquals(BigDecimal.valueOf(result), BigDecimal.valueOf(0.0d));
+    }
 }
