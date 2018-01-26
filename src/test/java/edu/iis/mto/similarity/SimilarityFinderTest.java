@@ -80,4 +80,18 @@ public class SimilarityFinderTest {
 
         assertEquals(BigDecimal.valueOf(result), BigDecimal.valueOf(0.3d));
     }
+
+    @Test
+    public void isCalculatedProperlyForSubset() throws Exception {
+        int[] seq1 = {8, 0, 3, 21, 7, 2, 14, 13};
+        int[] seq2 = {14, 21, 8};
+
+        SequenceSearcher dubler = new SequenceSearcherDubler(true, false, false, true, false, false, true, false);
+
+        SimilarityFinder similarityFinder = new SimilarityFinder(dubler);
+
+        double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+
+        assertEquals(BigDecimal.valueOf(result), BigDecimal.valueOf(0.375d));
+    }
 }
