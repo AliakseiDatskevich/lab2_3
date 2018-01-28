@@ -19,4 +19,8 @@ public class SequenceSearcherDubler implements SequenceSearcher{
         boolean result = results[counter++];
         return new SearchResultDubler(result);
     }
+
+    public int getCounter() {
+        return counter;
+    }
 }

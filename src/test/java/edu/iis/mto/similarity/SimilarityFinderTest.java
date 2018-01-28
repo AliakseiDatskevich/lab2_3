@@ -94,4 +94,20 @@ public class SimilarityFinderTest {
 
         assertEquals(BigDecimal.valueOf(result), BigDecimal.valueOf(0.375d));
     }
+
+    @Test
+    public void isMethodCalledProperNumberOfTimes() {
+        int[] seq1 = {8, 0, 3, 21, 7, 2, 14, 13};
+        int[] seq2 = {14, 21, 8};
+
+        SequenceSearcherDubler dubler = new SequenceSearcherDubler(true, false, false, true, false, false, true, false);
+
+        SimilarityFinder similarityFinder = new SimilarityFinder(dubler);
+
+        similarityFinder.calculateJackardSimilarity(seq1, seq2);
+
+        int counter = dubler.getCounter();
+
+        assertEquals(counter, 8);
+    }
 }
