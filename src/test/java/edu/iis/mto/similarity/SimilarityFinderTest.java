@@ -110,4 +110,25 @@ public class SimilarityFinderTest {
 
         assertEquals(counter, 8);
     }
+
+    @Test
+    public void isMethodCalledWithProperParameters() {
+        int[] seq1 = {8, 0, 3, 21};
+        int[] seq2 = {14, 21, 8};
+
+        SequenceSearcherDubler dubler = new SequenceSearcherDubler(true, false, false, true);
+
+        SimilarityFinder similarityFinder = new SimilarityFinder(dubler);
+
+        similarityFinder.calculateJackardSimilarity(seq1, seq2);
+
+        int[] parameters = dubler.getParameters();
+
+        assertEquals(parameters.length, 4);
+
+        assertEquals(parameters[0], 8);
+        assertEquals(parameters[1], 0);
+        assertEquals(parameters[2], 3);
+        assertEquals(parameters[3], 21);
+    }
 }
