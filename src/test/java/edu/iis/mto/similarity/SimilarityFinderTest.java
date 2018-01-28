@@ -131,4 +131,28 @@ public class SimilarityFinderTest {
         assertEquals(parameters[2], 3);
         assertEquals(parameters[3], 21);
     }
+
+    @Test
+    public void isSecondParameterConstant() {
+        int[] seq1 = {8, 0, 3, 21};
+        int[] seq2 = {14, 21, 8};
+
+        SequenceSearcherDubler dubler = new SequenceSearcherDubler(true, false, false, true);
+
+        SimilarityFinder similarityFinder = new SimilarityFinder(dubler);
+
+        similarityFinder.calculateJackardSimilarity(seq1, seq2);
+
+        int[][] seqParameters = dubler.getSeqParameters();
+
+        assertEquals(seqParameters.length, 4);
+
+        for(int[] seqParam : seqParameters){
+            assertEquals(seqParam.length, 3);
+
+            assertEquals(seqParam[0], 14);
+            assertEquals(seqParam[1], 21);
+            assertEquals(seqParam[2], 8);
+        }
+    }
 }
