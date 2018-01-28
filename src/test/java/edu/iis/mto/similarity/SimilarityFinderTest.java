@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class SimilarityFinderTest {
 
     @Test
-    public void areEmptySequencesEqual() throws Exception {
+    public void areEmptySequencesEqual() {
         int[] seq1 = {};
         int[] seq2 = {};
 
@@ -26,7 +26,7 @@ public class SimilarityFinderTest {
     }
 
     @Test
-    public void areSequencesIdentical() throws Exception {
+    public void areSequencesIdentical() {
         int[] seq1 = {1, 0, 3, 22, 7, 2, 99};
         int[] seq2 = {22, 1, 7, 99, 3, 2, 0};
 
@@ -40,7 +40,7 @@ public class SimilarityFinderTest {
     }
 
     @Test
-    public void areSequencesPartlyDifferent() throws Exception {
+    public void areSequencesPartlyDifferent() {
         int[] seq1 = {1, 0, 3, 22, 7, 2, 99, 13};
         int[] seq2 = {14, 22, 8, 7, 5, 3, 50, 0};
 
@@ -54,7 +54,7 @@ public class SimilarityFinderTest {
     }
 
     @Test
-    public void areSequencesCompletelyDifferent() throws Exception {
+    public void areSequencesCompletelyDifferent() {
         int[] seq1 = {1, 0, 3, 22, 7, 2, 99, 13};
         int[] seq2 = {14, 21, 8, 27, 5, 30, 50, 33};
 
@@ -68,7 +68,7 @@ public class SimilarityFinderTest {
     }
 
     @Test
-    public void isCalculatedProperlyForDifferentLength() throws Exception {
+    public void isCalculatedProperlyForDifferentLength() {
         int[] seq1 = {8, 0, 3, 21, 7, 2, 14, 13};
         int[] seq2 = {14, 5, 21, 3, 8};
 
@@ -82,7 +82,7 @@ public class SimilarityFinderTest {
     }
 
     @Test
-    public void isCalculatedProperlyForSubset() throws Exception {
+    public void isCalculatedProperlyForSubset() {
         int[] seq1 = {8, 0, 3, 21, 7, 2, 14, 13};
         int[] seq2 = {14, 21, 8};
 
