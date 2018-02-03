@@ -53,4 +53,15 @@ public class Tests {
 
         assertThat(result, Matchers.is(0.0));
     }
+
+    @Test
+    public void similarityOneSeqIsHalfOfSecond() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcherDubler());
+        int[] seq1 = {1, 2, 3};
+        int[] seq2 = {1, 2, 3, 4, 5, 6};
+
+        double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+
+        assertThat(result, Matchers.is(0.5));
+    }
 }
