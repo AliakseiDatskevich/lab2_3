@@ -75,4 +75,17 @@ public class Tests {
 
         assertThat(result, Matchers.is(0.2));
     }
+
+    @Test
+    public void counterTestAndParametersCorrectness() {
+        SequenceSearcherDubler searcher = new SequenceSearcherDubler();
+        SimilarityFinder similarityFinder = new SimilarityFinder(searcher);
+        int[] seq1 = {1, 2, 3};
+        int[] seq2 = {1, 2, 3};
+
+        similarityFinder.calculateJackardSimilarity(seq1, seq2);
+
+        assertThat(searcher.getCounter(), Matchers.is(seq1.length));
+        assertThat(searcher.getKeys(), Matchers.is(seq1));
+    }
 }
