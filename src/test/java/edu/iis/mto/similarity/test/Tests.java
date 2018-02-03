@@ -31,4 +31,15 @@ public class Tests {
 
         assertThat(result, Matchers.is(1.0));
     }
+
+    @Test
+    public void similarityBothSequenceDifferent() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcherDubler());
+        int[] seq1 = {1, 2, 3, 4, 5};
+        int[] seq2 = {6, 7, 8, 9, 10};
+
+        double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+
+        assertThat(result, Matchers.is(0.0));
+    }
 }
