@@ -64,4 +64,15 @@ public class Tests {
 
         assertThat(result, Matchers.is(0.5));
     }
+
+    @Test
+    public void similaritySequencesHaveCommonPart() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcherDubler());
+        int[] seq1 = {1, 2, 3, 4, 5, 6};
+        int[] seq2 = {5, 6, 7, 8, 9, 10};
+
+        double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+
+        assertThat(result, Matchers.is(0.2));
+    }
 }
