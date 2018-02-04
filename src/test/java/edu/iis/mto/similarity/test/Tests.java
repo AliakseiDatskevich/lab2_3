@@ -2,6 +2,9 @@ package edu.iis.mto.similarity.test;
 
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
@@ -83,9 +86,14 @@ public class Tests {
         int[] seq1 = {1, 2, 3};
         int[] seq2 = {1, 2, 3};
 
+        List<Integer> expectedKeys = new ArrayList<Integer>();
+        for (int key : seq1) {
+            expectedKeys.add(key);
+        }
+
         similarityFinder.calculateJackardSimilarity(seq1, seq2);
 
         assertThat(searcher.getCounter(), Matchers.is(seq1.length));
-        assertThat(searcher.getKeys(), Matchers.is(seq1));
+        assertThat(searcher.getKeys(), Matchers.is(expectedKeys));
     }
 }

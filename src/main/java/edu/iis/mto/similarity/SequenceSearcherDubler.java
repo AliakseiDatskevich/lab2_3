@@ -15,12 +15,8 @@ public class SequenceSearcherDubler implements SequenceSearcher {
         return counter;
     }
 
-    public int[] getKeys() {
-        int[] keysArray = new int[keys.size()];
-        for (int i = 0; i < keys.size(); i++) {
-            keysArray[i] = keys.get(i);
-        }
-        return keysArray;
+    public List<Integer> getKeys() {
+        return keys;
     }
 
     public SearchResult search(int key, int[] seq) {
