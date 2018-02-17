@@ -5,8 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import edu.iis.mto.search.SearchResult;
+import edu.iis.mto.search.SequenceSearcher;
 
-public class DublerSequenceResult {
+public class DublerSequenceResult implements SequenceSearcher {
 
     public List<SearchCall> searchCallHistory = new ArrayList<SearchCall>();
 
